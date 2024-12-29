@@ -408,7 +408,7 @@ class Configuration
         $timestamp = time();
         $hashedPayload = hash("sha512", ($payload != null) ? $payload : "");
         $signatureString = sprintf($fmt, $method, $fullPath,
-            \GuzzleHttp\Psr7\build_query($queryParams, false),
+            http_build_query($queryParams, '', '&', PHP_QUERY_RFC3986),
             $hashedPayload, $timestamp);
         $signature = hash_hmac("sha512", $signatureString, $this->getSecret());
         return [
